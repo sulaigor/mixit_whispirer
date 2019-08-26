@@ -1,0 +1,41 @@
+/* general */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* clearfix */
+.group:before,
+.group:after {
+  content: " ";
+  display: table;
+}
+
+.group:after {
+  clear: both;
+}
+
+/* element border */
+/** { outline: 3px solid black; } */
+
+body {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background: #e55;
+  color: #222;
+}
+
+li {
+  display: block;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}

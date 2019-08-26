@@ -1,4 +1,7 @@
-'use strict';
+import "../scss/base.scss";
+import jQuery from 'jquery';
+
+let $ = jQuery;
 
 let response = null;
 let username = '6ce70yue9n', password = 'z7c98534dc';
