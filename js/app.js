@@ -31,13 +31,6 @@ searchInput.addEventListener('input', () => {
   }, time);
 });
 
-// let test = {
-//   'city': "o",
-//   'street_name': 'gaga',
-// };
-
-// sendRequest(test, 500);
-
 function fillInputs(target) {
   let streetInput = document.getElementById('street-search'),
       cityInput = document.getElementById('city-search'),
@@ -55,12 +48,19 @@ function clearSearchList(id) {
 
 function createListItem(listElem, source) {
   let liElem = document.createElement('li');
-  let streetName = `${source.street_name ? source.street_name : source.city} ${source.description_number}`;
-  liElem.classList = 'list-item';
-  liElem.setAttribute('data-street', streetName);
-  liElem.setAttribute('data-city', source.city);
-  liElem.setAttribute('data-zip', source.zip);
-  liElem.appendChild(document.createTextNode(createItemText(source)));
+
+  if(source) {
+    let streetName = `${source.street_name ? source.street_name : source.city} ${source.description_number}`;
+    liElem.classList = 'list-item';
+    liElem.setAttribute('data-street', streetName);
+    liElem.setAttribute('data-city', source.city);
+    liElem.setAttribute('data-zip', source.zip);
+    liElem.appendChild(document.createTextNode(createItemText(source)));
+  }
+  else {
+    liElem.appendChild(document.createTextNode('Nic nenalezeno...'));
+  }
+
   listElem.appendChild(liElem, true);
 }
 
