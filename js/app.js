@@ -7,10 +7,18 @@ let response = null;
 let username = '6ce70yue9n', password = 'z7c98534dc';
 let timer = null;
 let time = 400;
-let searchInput = document.getElementById('address-search');
+let searchInput = document.getElementById('street-search');
+let resultList = document.getElementById('search-result');
 
 searchInput.addEventListener('click', () => {
   searchInput.placeholder = '';
+});
+
+resultList.addEventListener('click', event => {
+  if(event.target.classList.contains('list-item')) {
+    fillInputs(event.target);
+    clearSearchList('search-result');
+  }
 });
 
 searchInput.addEventListener('input', () => {
@@ -30,16 +38,29 @@ searchInput.addEventListener('input', () => {
 
 // sendRequest(test, 500);
 
+function fillInputs(target) {
+  let streetInput = document.getElementById('street-search'),
+      cityInput = document.getElementById('city-search'),
+      zipInpit = document.getElementById('zip-search');
+
+  [ streetInput, cityInput, zipInpit ].forEach(input =>
+    input.value = target.dataset[input.name]);
+}
+
 function clearSearchList(id) {
   let searchList = document.getElementById(id);
   searchList.classList.remove('active');
   searchList.innerHTML = '';
 }
 
-function createListItem(listElem, text) {
+function createListItem(listElem, source) {
   let liElem = document.createElement('li');
+  let streetName = `${source.street_name ? source.street_name : source.city} ${source.description_number}`;
   liElem.classList = 'list-item';
-  liElem.appendChild(document.createTextNode(text));
+  liElem.setAttribute('data-street', streetName);
+  liElem.setAttribute('data-city', source.city);
+  liElem.setAttribute('data-zip', source.zip);
+  liElem.appendChild(document.createTextNode(createItemText(source)));
   listElem.appendChild(liElem, true);
 }
 
@@ -69,22 +90,23 @@ function sendRequest(params, size = 20) {
 //   },
 // });
 
+function createItemText(source) {
+  return `${source.city}, ${source.street_name ? source.street_name + ' ' : ''}${source.description_number}, ${source.zip}`;
+}
+
 $(document).ajaxSuccess(function (event, xhr, settings) {
   response = JSON.parse(xhr.responseText);
-  // console.log(response.hits.hits[299]._source);
   // console.log(response.hits.hits);
-  // response.hits.hits.forEach(hit => console.log(hit._source));
 
-  let searchList = document.getElementById('search-result');
-  searchList.innerHTML = '';
-  if(response.hits.hits.length == 0)
-    createListItem(searchList, 'Nic nenalezeno...');
+  resultList.innerHTML = '';
+  if(response.hits.hits.length === 0)
+    createListItem(resultList, null);
   else
     response.hits.hits.forEach(hit => {
-      createListItem(searchList, hit._source.city);
+      createListItem(resultList, hit._source);
     });
 
-  searchList.classList.add('active');
+  resultList.classList.add('active');
 });
 
 $(document).ajaxError(function (event, xhr, settings) {

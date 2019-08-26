@@ -16,10 +16,19 @@
 <main class="main">
   <div class="container">
     <form id="search-form">
-      <label class="search-label" for="address-search">Zadejte adresu pro vyhledávání</label>
-      <input type="text" class="search-input" id="address-search" placeholder="Adresa" autofocus>
+      <div class="form-group">
+        <label class="search-label" for="street-search">Zadejte ulici: </label>
+        <input name="street" type="text" class="search-input" id="street-search" placeholder="Ulice" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="zip-search" class="search-label">Zadejte PSČ: </label>
+        <input name="zip" type="text" id="zip-search" class="search-input" placeholder="PSČ">
+      </div>
+      <div class="form-group">
+        <label for="city-search" class="search-label">Zadejte město: </label>
+        <input name="city" type="text" id="city-search" class="search-input" placeholder="Město">
+      </div>
       <ul id="search-result">
-        <li class="list-item">nevim</li>
       </ul>
     </form>
   </div>
