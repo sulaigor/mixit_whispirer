@@ -29,6 +29,7 @@ export default class Whisperer {
     this.searchForm.getSearchInput().addEventListener('input', () => {
       clearTimeout(this.timer);
       this.searchResult.clearResults();
+      this.searchForm.clearOtherInputs();
 
       this.timer = setTimeout(() => {
         if(this.searchForm.getSearchInputValue().length > 0)

@@ -14,6 +14,12 @@ export default class SearchForm {
     this.inputs.push(this.searchInput);
   }
 
+  clearOtherInputs() {
+    this.inputs.forEach(input => {
+      if(input !== this.searchInput) input.value = '';
+    });
+  }
+
   getInputs() {
     return this.inputs;
   }

@@ -7,7 +7,11 @@ export default class SearchResult {
 
   initSearchResult(inputs) {
     this.searchResult.addEventListener('click', event => {
-      if(event.target.classList.contains('list-item')) this.fillInputs(event.target, inputs);
+      if(event.target.classList.contains('list-item'))
+      {
+        this.fillInputs(event.target, inputs);
+        this.clearResults();
+      }
     });
   }
 
